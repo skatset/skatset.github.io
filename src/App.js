@@ -5,41 +5,42 @@ import moment from "moment";
 
 class App extends Component {
 
-  s = moment("2018-12-25");
+  startDate = moment("2018-12-25");
 
   tileClassName = ({date, view}) => {
-      if (view === "month") {
-          const d = -this.s.diff(date, "day");
-          if (d < 0) {
-            return null;
-          } else {
-            switch (d % 8) {
-              case 0:
-              case 1:
-                return "App-morning";
-              case 2:
-                return "App-weekend";
-              case 3:
-              case 4:
-                return "App-night";
-              case 5:
-                return "App-sleep";
-              case 6:
-              case 7:
-                return "App-weekend";
-              default:
-                alert("Something bad((");
-            }
-          }
+    if (view === "month") {
+      const d = -this.startDate.diff(date, "day");
+      if (d < 0) {
+        return "";
+      } else {
+        switch (d % 8) {
+          case 0:
+          case 1:
+            return "App-morning";
+          case 2:
+            return "App-weekend";
+          case 3:
+          case 4:
+            return "App-night";
+          case 5:
+            return "App-sleep";
+          case 6:
+          case 7:
+            return "App-weekend";
+          default:
+            alert("Illegal divider: " + d);
+        }
       }
-      return null;
+    }
+    return "";
   }
 
   render() {
+    console.log(this.state.date)
     return (
       <div className="App">
         <div className="App-header">
-          <Calendar minDetail="decade" tileClassName={this.tileClassName} />
+          <Calendar minDetail="decade" locale="ru-RU" tileClassName={this.tileClassName}/>
         </div>
       </div>
     );
